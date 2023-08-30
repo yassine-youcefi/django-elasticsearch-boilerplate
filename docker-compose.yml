@@ -1,0 +1,58 @@
+version: "3"
+services:
+
+  web:
+    container_name: django
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DOCKER_BUILDKIT: 1
+    env_file: .env  
+    ports:
+      - "0.0.0.0:8000:8000"
+    command: bash -c  "python manage.py runserver 0.0.0.0:8000"
+
+    volumes:
+      - .:/code
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+      - redis
+
+
+  redis:
+    container_name: redis
+    image: redis
+    user: redis
+    restart: always
+    
+
+  # celery:
+  #   container_name: celery
+  #   build: .
+  #   env_file: .env
+  #   command: celery -A config worker -l info
+  #   volumes:
+  #     - .:/code
+  #   depends_on:
+  #     - redis
+  #   restart: always
+
+
+  db:
+    image: mysql:latest
+    container_name: db
+    restart: always
+    environment:
+      - MYSQL_DATABASE=tg_db
+      - MYSQL_ROOT_PASSWORD=password  
+    
+    volumes:
+      - data:/app/data
+volumes:
+  data:
+
+
+    
