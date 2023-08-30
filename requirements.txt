@@ -20,7 +20,7 @@ PyJWT==2.6.0
 pytest==7.3.1
 pytz==2023.3
 boto3==1.28.37
-psycopg2==2.9.7
+psycopg2
 
 # elasticsearch
 django-elasticsearch-dsl-drf

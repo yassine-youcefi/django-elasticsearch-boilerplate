@@ -38,15 +38,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # local application
-    'connect',
+    'users',
     
     # third party libraries
-    'rest_framework',
-    'django_filters',
-    'rest_framework_swagger',
     'drf_yasg',
     'celery',
     "corsheaders",
+    'rest_framework',
+    'django_filters',
+    'rest_framework_swagger',
+    'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl_drf'
+    
 
 ]
 
@@ -115,6 +118,11 @@ DATABASES = {
     }
 }
 
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': f'{os.environ.get("ELASTICSEARCH_HOST","elasticsearch")}:{os.environ.get("ELASTICSEARCH_PORT","9200")}'
+    },
+}
 
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
@@ -191,3 +199,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = "users.User"
+
