@@ -20,6 +20,9 @@ services:
     depends_on:
       - db
       - redis
+    networks:
+      - fmsb-network
+
 
 
   redis:
@@ -36,6 +39,9 @@ services:
     - /code/redis.conf:/code/redis.conf
     - redis-data:/data
     - redis-logs:/var/log/redis
+    networks:
+      - fmsb-network
+
     
 
   celery:
@@ -48,6 +54,9 @@ services:
     depends_on:
       - redis
     restart: always
+    networks:
+      - fmsb-network
+
 
 
   db:
@@ -62,6 +71,14 @@ services:
       - '5432:5432'
     volumes: 
       - db:/var/lib/postgresql/data
+    networks:
+      - fmsb-network
+
+networks:
+  default:
+    driver: bridge
+  fmsb-network:
+    external: true
 
 volumes:
   redis-data:
