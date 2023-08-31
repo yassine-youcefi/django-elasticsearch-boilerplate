@@ -1,11 +1,22 @@
+from users.models import User
+from elasticsearch import Elasticsearch
 from django_elasticsearch_dsl import Document
 from django_elasticsearch_dsl.registries import registry
-from users.models import User, UserConfirmation
+from django.conf import settings
 
 
+es = Elasticsearch(hosts=settings.ELASTICSEARCH_DSL['default']['hosts'])
+es.indices.put_template(name='default', body={
+    "index_patterns": ["user"],
+    "settings": {
+        "index": {
+            "number_of_replicas": 0
+        }
+    }
+})
 
 @registry.register_document
-class CategoryDocument(Document):
+class UserDocument(Document):
     class Index:
         name = 'user'
     settings = {
