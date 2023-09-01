@@ -1,0 +1,29 @@
+version: '3'
+# need to cate the backet
+# exec the localstack container and run :
+# aws --endpoint-url=http://localhost:4566 s3api create-bucket --bucket users --region us-east-1
+services:
+  localstack:
+    image: localstack/localstack
+    container_name: localstack
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - HOSTNAME_EXTERNAL=localstack
+    ports:
+      - "4563-4599:4563-4599"
+    volumes:
+      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - fmsb-network
+
+networks:
+  default:
+    driver: bridge
+  fmsb-network:
+    external: true
+
+volumes:
+  data:
