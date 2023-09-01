@@ -69,12 +69,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=10),
-    'REFRESH_TOKEN_LIFETIME': timedelta(hours=15),
-    'ROTATE_REFRESH_TOKENS': False,
-}
-
 
 TEMPLATES = [
     {

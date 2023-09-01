@@ -13,10 +13,10 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Skyloov API",
+        title="boilerplate schema",
         default_version='v1',
-        description="Welcome to the code challenge of Skyloov",
-        terms_of_service="https://www.skyloov.com/",
+        description="Welcome",
+        terms_of_service="http:localhost:8080",
         contact=openapi.Contact(email="mohamed.youcefi.etu@univ-mosta.dz"),
         license=openapi.License(name="Awesome IP"),
     ),
